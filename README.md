@@ -1,53 +1,90 @@
-# EXP 02- LIBRARY MANAGEMENT SYSTEM
+# Ex.No:1a  			Study of Socket Programming 
 
-# AIM:
+## Aim: 
+To perform a study on Socket Programming
+## Introduction:
 
-To study the problem statement, SRS document and draw all the UML diagrams of a Library Management System.
+ 	Socket programming is a crucial aspect of network communication, allowing for data exchange between computers over a network. It forms the backbone of various networked applications, enabling communication between clients and servers. This study explores the fundamental concepts of socket programming, its use cases, and provides a practical example to demonstrate its implementation.
+## Understanding Socket Programming:
+	Socket programming involves the use of sockets, which serve as endpoints for communication. A socket is identified by an IP address and a port number, and it facilitates data transfer between a client and a server. The two main types of sockets are Stream Sockets, which provide a reliable, connection-oriented communication, and Datagram Sockets, which are connectionless and suitable for scenarios where reliability is less critical.
+## Key Concepts in Socket Programming:
+1.Sockets
+•	A socket is a software representation of a communication endpoint in a network.
+•	It is identified by an IP address and a port number.
+•	Sockets can be classified into two main types: Stream Sockets and Datagram Sockets.
+•	Stream Sockets provide a reliable, connection-oriented communication, while Datagram Sockets are connectionless and operate in a best-effort mode.
 
-# SRS (Procedure):
+2. Client-Server Model
 
-## Step 1: Problem Identification
+•	Socket programming typically follows the client-server model.
+•	The server listens for incoming connections from clients, while clients initiate connections to the server.
+•	Servers are passive, waiting for connection requests, and clients are active, initiating communication.
 
-Manual library operations like issuing, returning, and tracking books are time-consuming and prone to errors. The system aims to automate these processes.
+3, TCP/IP Protocol:
 
-## Step 2: Requirement Analysis
+•	Transmission Control Protocol (TCP) and Internet Protocol (IP) are the foundational protocols for socket programming.
+•	TCP provides reliable, connection-oriented communication, ensuring data integrity and order.
+•	IP facilitates the routing of data between devices in a network.
 
-Identify user roles: Admin, Librarian, Student.      
-Define main functions: Add books, issue/return books, search books, manage members, generate reports.     
-Set non-functional needs: reliability, security, and easy interface.    
+4.Basic Socket Functions:
 
-## Step 3: System Design
+•	Socket programming involves a set of functions provided by the operating system or programming language to create, bind, listen, accept, connect, send, and receive data through sockets.
+•	Examples of functions include socket(), bind(), listen(), accept(), connect(), send(), and recv().
 
-Draw UML diagrams: Use Case, Class, Activity, Sequence, and Package diagrams.      
-Design database tables for Books, Members, Transactions, and Staff.      
+## Server-Side Operations:
 
+•	Servers create a socket using socket() and bind it to a specific IP address and port using bind().
+•	They then listen for incoming connections with listen() and accept connections with accept().
+•	Once a connection is establi
+•	shed, servers can send and receive data using send() and recv().
 
-# UML DIAGRAMS:
+## Client –Server Operations
 
-## USECASE DIAGRAM:
+Clients create a socket using socket() and connect to a server using connect().
+After establishing a connection, clients can send and receive data using send() and recv().
 
-<img width="1124" height="912" alt="image" src="https://github.com/user-attachments/assets/304b1b57-8206-43fb-82c7-4931c7a5ec81" />
+## Use Cases of Socket Programming:
+Socket programming finds applications in various domains, including web development, file transfer protocols, online gaming, and real-time communication. It is the foundation for protocols like HTTP, FTP, and SMTP, which power the internet. Socket programming enables the development of both server and client applications, facilitating the exchange of information between devices in a networked environment.
+## Example Use Cases:
 
-## CLASS DIAGRAM:
+1.	Web servers: Web servers use socket programming to handle incoming HTTP requests from clients, serving web pages and content.
+2.	Chat Application: Instant messaging and chat applications use sockets to enable real-time communication between users.
+3.	File Transfer Protocol: Protocols like FTP (File Transfer Protocol) utilize socket programming for transferring files between a client and a server.
+4.	Networked Games: Online multiplayer games rely on socket programming to facilitate communication between game clients and servers.
+5.	RPC mechanisms: which allow processes to execute code on a remote server, often use socket programming for communication.
 
-<img width="1023" height="736" alt="image" src="https://github.com/user-attachments/assets/5abe0f27-04d4-417c-91de-ab14ddc671b7" />
+## PROGRAM:
 
-## COMMUNICATION DIAGRAM:
+## CLIENT
+```
+import socket
+from datetime import datetime
+s=socket.socket()
+s.bind(('localhost',8000))
+s.listen(5)
+c,addr=s.accept()
+print("Client Address : ",addr)
+now = datetime.now()
+c.send(now.strftime("%d/%m/%Y %H:%M:%S").encode())
+ack=c.recv(1024).decode()
+if ack:
+ print(ack)
+c.close()
+```
 
-<img width="1105" height="760" alt="image" src="https://github.com/user-attachments/assets/f6397f7d-9270-4a2f-ac4f-f4633b83d350" />
+## Server
+```
+import socket
+s=socket.socket()
+s.connect(('localhost',8000))
+print(s.getsockname())
+print(s.recv(1024).decode())
+s.send("acknowledgement recived from the server".encode())
+```
 
-## ACTIVITY DIAGRAM:
+## Output
 
-<img width="783" height="1012" alt="image" src="https://github.com/user-attachments/assets/f7d070b8-1eeb-4d00-ba7f-21966fa573b1" />
+<img width="1920" height="1200" alt="Screenshot 2025-08-08 144336" src="https://github.com/user-attachments/assets/eed2e85f-aaaf-42e0-a507-c6c0c66e644c" />
 
-## SEQUENCE DIAGRAM:
-
-<img width="879" height="1003" alt="image" src="https://github.com/user-attachments/assets/984ad0a6-47f7-4069-95be-ce90e1f99e76" />
-
-## PACKAGE DIAGRAM:
-
-<img width="780" height="639" alt="image" src="https://github.com/user-attachments/assets/54ae7b5e-50e1-4d48-85ce-7b2974cbc2a0" />
-
-# RESULT:
-
-Thus the Library management system project was executed and the output was verified.
+## Result:
+Thus the study of Socket Programming Completed Successfully
